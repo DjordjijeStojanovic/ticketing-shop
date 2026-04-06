@@ -16,6 +16,12 @@ spec:
         - name: auth
           #image: us.gcr.io/ticketing-shop-dev/auth
           image: djolestojanovic/auth
+          env:
+            - name: jwt_key
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: jwt_key
 
 ---
 
