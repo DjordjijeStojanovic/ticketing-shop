@@ -1,20 +1,17 @@
 import express, { Request, Response } from 'express';
-import { body, validationResult } from 'express-validator';
-import { RequestValidationError } from '../errors/RequestValidationError';
+import { body } from 'express-validator';
 import { User } from '../models/user';
 import { BadHTTPRequestError } from '../errors/BadHTTPRequestError';
+import jwt from 'jsonwebtoken';
+import { validateRequest } from '../middlewares/validateRequest';
+
 
 const router = express.Router();
 
 router.post('/api/users/signup', [
     body('email').isEmail().withMessage('Please provide a valid email.'),
     body('password').trim().isLength({ min: 4, max: 16 }).withMessage('Password must be between 4 ad 16 chars')
-], async (req: Request, res: Response) => {
-    const ifErrors = validationResult(req);
-
-    if(!ifErrors.isEmpty()) {
-        throw new RequestValidationError(ifErrors.array());
-    }
+], validateRequest, async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const userExists = await User.findOne({ email });
     
@@ -24,6 +21,13 @@ router.post('/api/users/signup', [
 
     const user = User.build({ email: email, password: password });
     await user.save();
+
+    const userJwt = jwt.sign({
+        id: user._id,
+        email: user.email
+    }, process.env.jwt_key);
+
+    req.session.jwt = userJwt;
 
     return res.status(201).json({ result: 'User succesfully created!', user: user });
 });

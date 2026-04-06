@@ -6,6 +6,7 @@
       "rootDir": "./src",
       "strict": false,                                                                                                                                                                   
       "esModuleInterop": true,                                                                                                                                                         
-      "skipLibCheck": true
+      "skipLibCheck": true,
+      "types": ["node", "jest"]
     }
   }  

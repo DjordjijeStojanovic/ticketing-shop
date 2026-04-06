@@ -1,0 +1,4 @@
+POST https://ticket-shop.docker/api/users/signout
+Content-Type: application/json
+
+{}
