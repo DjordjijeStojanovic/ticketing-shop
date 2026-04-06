@@ -1,5 +1,5 @@
 FROM node:alpine
 WORKDIR /app
 COPY . .
-RUN npm i
+RUN npm i --omit=dev
 CMD [ "npm", "start" ]

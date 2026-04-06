@@ -1,0 +1,7 @@
+POST https://ticket-shop.docker/api/users/signup
+Content-Type: application/json
+
+{
+    "email": "newtest1@test.com",
+    "password": "1234"
+}

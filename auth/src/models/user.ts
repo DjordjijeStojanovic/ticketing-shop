@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { Password } from '../utils/password'
+import { rename } from 'fs';
 
 //This interface prevents random attributes being sent to Mongoose when creating a user
 interface UserAttributes {
@@ -24,6 +25,15 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    }
+}, {
+    toJSON: {
+        transform(doc, ret: any) {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.password;
+        },
+        versionKey: false
     }
 });
 
