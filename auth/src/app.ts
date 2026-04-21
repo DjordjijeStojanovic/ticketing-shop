@@ -8,8 +8,8 @@ import { currentUserRouter } from './routes/currentUser';
 import { signInRouter } from './routes/signIn';
 import { signOutRouter } from './routes/signOut';
 import { signUpRouter } from './routes/signUp';
-import { errorHandler } from './middlewares/errorHandler';
-import { RouteNotFoundError } from './errors/routeNotFound';
+import { errorHandler } from '@djordjestojanovic/common';
+import { RouteNotFoundError } from '@djordjestojanovic/common';
 
 const app = express();
 

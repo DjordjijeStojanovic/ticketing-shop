@@ -15,7 +15,7 @@ spec:
       containers:
         - name: auth
           #image: us.gcr.io/ticketing-shop-dev/auth
-          image: djolest/next-client
+          image: djolestojanovic/next-client
           imagePullPolicy: IfNotPresent
           env:
             - name: jwt_key

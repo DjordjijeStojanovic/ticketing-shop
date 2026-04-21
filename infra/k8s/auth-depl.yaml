@@ -15,7 +15,7 @@ spec:
       containers:
         - name: auth
           #image: us.gcr.io/ticketing-shop-dev/auth
-          image: djolest/auth
+          image: djolestojanovic/auth
           env:
             - name: jwt_key
               valueFrom:
