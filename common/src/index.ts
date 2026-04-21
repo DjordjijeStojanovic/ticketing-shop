@@ -4,7 +4,7 @@ interface Drakula {
 }
 
 const drakula: Drakula = {
-    teeth:true,
+    teeth: false,
     scary: ''
 };
 
