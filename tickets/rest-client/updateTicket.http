@@ -1,0 +1,7 @@
+PUT https://ticket-shop.docker/api/tickets/69eb9a5a07b97623271e4779
+Content-Type: application/json
+
+{
+    "title": "Updated title",
+    "price": "2"
+}

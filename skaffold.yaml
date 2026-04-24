@@ -10,7 +10,7 @@ build:
   #   projectId: ticketing-shop-dev
   artifacts:
     #- image: us.gcr.io/ticketing-shop-dev/auth
-    - image: djolestojanovic/auth
+    - image: djolest/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -18,8 +18,16 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: djolestojanovic/next-client
+    - image: djolest/next-client
       context: next-client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '**/*.js'
+    - image: djolest/tickets
+      context: tickets
       docker:
         dockerfile: Dockerfile
       sync:

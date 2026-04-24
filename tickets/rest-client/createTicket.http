@@ -1,0 +1,7 @@
+POST https://ticket-shop.docker/api/tickets 
+Content-Type: application/json
+
+{
+    "title": "New ticket 2",
+    "price": "30.0"
+}
