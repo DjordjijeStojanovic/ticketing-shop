@@ -7,8 +7,30 @@ const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), { url: 'h
 
 stan.on('connect', () => {
     console.log('Listener connected to NATS');
-    const subscritpion = stan.subscribe('ticket-created');
+
+    stan.on('close', () => {
+        console.log('STAN Listener connection closed.');
+        process.exit();
+    });
+
+    const options = 
+        stan
+        .subscriptionOptions()
+        .setManualAckMode(true)
+        .setDeliverAllAvailable()
+        .setDurableName('test-service')
+
+    const subscritpion = stan.subscribe(
+        'ticket-created', 
+        'test-service-queue', 
+        options
+    );
     subscritpion.on('message', (message: Message) => {
-        console.log(message.getData());
+        console.log(`Received event ${message.getSequence()}, delivered: ${message.isRedelivered()}, with data: 
+            ${message.getData()}`);
+        message.ack();
     });
 });
+
+process.on('SIGINT', () => stan.close());
+process.on('SIGTERM', () => stan.close());
