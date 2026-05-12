@@ -13,7 +13,6 @@ const AppComponent = ({ Component, pageProps, user }) => {
 };
 
 AppComponent.getInitialProps = async (appCtx) => {
-    console.log(appCtx);
     const client = buildClient(appCtx.ctx);
     const { data } = await client.get('/api/users/me');
     let renderedComponentProps = {};

@@ -2,17 +2,17 @@ import mongoose from "mongoose";
 
 interface TicketAttributes {
     title: string;
-    price: string;
+    price: number;
     userId: string;
 }
 
-interface TicketModel extends mongoose.Model<TicketAttributes> {
+interface TicketModel extends mongoose.Model<TicketDocument> {
     build(attributes: TicketAttributes): TicketDocument;
 }
 
 interface TicketDocument extends mongoose.Document {
     title: string;
-    price: string;
+    price: number;
     userId: string;
 }
 
@@ -22,7 +22,7 @@ const ticketSchema = new mongoose.Schema({
         required: true
     },
     price: {
-        type: String,
+        type: Number,
         required: true
     },
     userId: {

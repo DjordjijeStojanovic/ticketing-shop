@@ -2,6 +2,8 @@ import { app } from "../../app";
 import request from 'supertest';
 import { Ticket } from "../../models/ticket";
 
+jest.mock('../../natsClient');
+
 const endpoint = '/api/tickets';
 
 it('Validate POST /api/tickets exist', async () => {
