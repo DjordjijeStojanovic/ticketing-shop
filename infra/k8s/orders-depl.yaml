@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: tickets-depl
+  name: orders-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tickets
+      app: orders
   template:
     metadata:
       labels:
-        app: tickets
+        app: orders
     spec:
       containers:
-        - name: tickets
+        - name: orders
           #image: us.gcr.io/ticketing-shop-dev/auth
-          image: djolest/tickets
+          image: djolest/orders
           env:
             - name: mongo_uri
-              value: 'mongodb://tickets-mongo-service:27017/tickets'
+              value: 'mongodb://orders-mongo-service:27017/orders'
             - name: jwt_key
               valueFrom:
                 secretKeyRef:
@@ -40,12 +40,12 @@ spec:
 apiVersion: v1 
 kind: Service
 metadata:
-  name: tickets-service
+  name: orders-service
 spec:
   selector:
-    app: tickets
+    app: orders
   ports:
-    - name: tickets
+    - name: orders
       protocol: TCP
       port: 4000
       targetPort: 4000

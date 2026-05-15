@@ -1,6 +1,7 @@
 import { app } from "../../app";
 import request from 'supertest';
 import mongoose from "mongoose";
+import { natsWrapper } from "../../__mocks__/natsClient";
 
 const endpoint = '/api/tickets';
 
@@ -103,4 +104,30 @@ it('Return 200 if the user succesfully updates a ticket', async () => {
     expect(updatedTicket.body.title).toEqual('New title');
     expect(updatedTicket.body.price).toEqual('30.0');
 
+});
+
+it('Emits an event once the ticket is updated', async () => {
+    const cookie = global.fakeAuth();
+    const newTicket = await request(app)
+        .post(endpoint)
+        .set('Cookie', cookie)
+        .send({
+            title: 'New ticket',
+            price: '20.00'
+        })
+        .expect(201)
+    
+
+    const ticketId = newTicket.body.ticket.id;
+
+    await request(app)
+        .put(`${endpoint}/${ticketId}`)
+        .set('Cookie', cookie)
+        .send({
+            title: 'New title',
+            price: '30.0'
+        })
+        .expect(200)
+    
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

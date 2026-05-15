@@ -48,7 +48,7 @@ const startUp = async () => {
     }
     app.listen(4000, () => {
         console.log(
-            "Tickets service running on http://ticket-shop.docker. Also, connected to Mongo."
+            "Orders service running on http://ticket-shop.docker. Also, connected to Mongo."
         );
     });
 };
