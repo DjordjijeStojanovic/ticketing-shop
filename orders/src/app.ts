@@ -7,10 +7,10 @@ import cookieSession from 'cookie-session';
 import { errorHandler } from '@djordjestojanovic/common';
 import { RouteNotFoundError } from '@djordjestojanovic/common';
 import { currentUser } from '@djordjestojanovic/common';
-// import { createTicketRouter } from './routes/createTicket';
-// import { getTicketRouter } from './routes/getTicket';
-// import { listTicketsRouter } from './routes/listTickets';
-// import { updateTicketRouter } from './routes/updateTicket';
+import { createOrderRouter } from './routes/createOrder';
+import { cancelOrderRouter } from './routes/cancelOrder';
+import { getOrderRouter } from './routes/getOrder';
+import { listOrdersRouter } from './routes/listOrders';
 
 const app = express();
 
@@ -22,10 +22,10 @@ app.use(cookieSession({
 }));
 
 app.use(currentUser);
-// app.use(createTicketRouter);
-// app.use(getTicketRouter);
-// app.use(listTicketsRouter);
-// app.use(updateTicketRouter)
+app.use(createOrderRouter);
+app.use(cancelOrderRouter);
+app.use(getOrderRouter);
+app.use(listOrdersRouter)
 
 app.all('*', async (req, res) => {
     throw new RouteNotFoundError();
