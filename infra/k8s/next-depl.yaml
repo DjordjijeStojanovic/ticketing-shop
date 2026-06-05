@@ -18,11 +18,11 @@ spec:
           image: djolest/next-client
           imagePullPolicy: IfNotPresent
           env:
-            - name: jwt_key
+            - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
-                  key: jwt_key
+                  key: JWT_KEY
 
 ---
 

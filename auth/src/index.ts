@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 import { app } from "./app";
 
 const startUp = async () => {
-    if(!process.env.jwt_key) {
+    if(!process.env.JWT_KEY) {
         throw new Error('JWT Secret not defined in auth-depl.yaml');
     }
     
     try {
-        await mongoose.connect(process.env.mongo_uri);
+        await mongoose.connect(process.env.MONGO_URI);
     } catch (error) {
         console.error(error);
     }

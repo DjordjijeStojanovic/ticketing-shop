@@ -17,7 +17,7 @@ declare global {
 jest.mock('../natsClient');
 
 beforeAll(async () => {
-    process.env.jwt_key = 'test_secret';
+    process.env.JWT_KEY = 'test_secret';
     mongo = await MongoMemoryServer.create();
     const getUri = mongo.getUri();
 
@@ -45,7 +45,7 @@ global.fakeAuth = () => {
         email: 'test@test.com'
     }
 
-    const userJwt = jwt.sign(user, process.env.jwt_key);
+    const userJwt = jwt.sign(user, process.env.JWT_KEY);
     const session = JSON.stringify({ jwt: userJwt });
     const encodedJWT = Buffer.from(session).toString('base64');
 

@@ -5,7 +5,8 @@ import {
     requireAuthToAccessRoutes,
     validateRequest,
     RouteNotFoundError,
-    UnauthorizedAccessError
+    UnauthorizedAccessError,
+    BadHTTPRequestError
 } from '@djordjestojanovic/common';
 import { TicketUpdatedPublisher } from '../events/publishers/ticketUpdatedPublisher';
 import { natsWrapper } from '../natsClient';
@@ -28,6 +29,10 @@ router.put('/api/tickets/:id',
             throw new RouteNotFoundError();
         }
 
+        if(ticket.orderId) {
+            throw new BadHTTPRequestError('This ticket is reserved and can\'t be edited right now.');
+        }
+
         const currentUser = req.currentUser.id;
 
         if (ticket.userId !== currentUser) {
@@ -45,7 +50,8 @@ router.put('/api/tickets/:id',
             id: ticket.id,
             title: ticket.title,
             price: ticket.price,
-            userId: ticket.userId
+            userId: ticket.userId,
+            version: ticket.version
         });
 
         res.json(ticket);

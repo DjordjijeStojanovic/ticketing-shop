@@ -17,18 +17,18 @@ spec:
           #image: us.gcr.io/ticketing-shop-dev/auth
           image: djolest/orders
           env:
-            - name: mongo_uri
+            - name: MONGO_URI
               value: 'mongodb://orders-mongo-service:27017/orders'
-            - name: jwt_key
+            - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
-                  key: jwt_key
-            - name: nats_url
+                  key: JWT_KEY
+            - name: NATS_URL
               value: 'http://nats-service:4222'
-            - name: clusterId
+            - name: NATS_CLUSTER_ID
               value: ticketing
-            - name: clientId
+            - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name

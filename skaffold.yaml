@@ -34,6 +34,14 @@ build:
         manual:
           - dest: .
             src: '**/*.js'
+    - image: djolest/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
     - image: djolest/orders
       context: orders
       docker:

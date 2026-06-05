@@ -1,33 +1,36 @@
 import mongoose from "mongoose";
 import { app } from "./app";
 import { natsWrapper } from "./natsClient";
+import { TicketCreatedListener } from "./events/listeners/ticketCreatedListener";
+import { TicketUpdatedListener } from "./events/listeners/ticketUpdatedListener";
+import { ExpirationCompletedListener } from "./events/listeners/expirationCompletedListener";
 
 const startUp = async () => {
-    if (!process.env.jwt_key) {
+    if (!process.env.JWT_KEY) {
         throw new Error("JWT Secret not defined in auth-depl.yaml");
     }
 
-    if (!process.env.mongo_uri) {
+    if (!process.env.MONGO_URI) {
         throw new Error("Mongo URI has to be defined in tickets-depl.yaml");
     }
 
-    if(!process.env.nats_url) {
+    if(!process.env.NATS_URL) {
         throw new Error('NATS streaming URL has to be defined in tickets-depl.yaml');
     }
 
-    if(!process.env.clusterId) {
+    if(!process.env.NATS_CLUSTER_ID) {
         throw new Error('Cluster ID has to be defined in tickets-depl.yaml');
     }
 
-    if(!process.env.clientId) {
+    if(!process.env.NATS_CLIENT_ID) {
         throw new Error('Client ID has to be defined in tickets-depl.yaml');
     }
 
     try {
         await natsWrapper.onConnect(
-            process.env.clusterId,
-            process.env.clientId,
-            process.env.nats_url
+            process.env.NATS_CLUSTER_ID,
+            process.env.NATS_CLIENT_ID,
+            process.env.NATS_URL
         );
 
         natsWrapper.client.on("close", () => {
@@ -42,7 +45,12 @@ const startUp = async () => {
             return natsWrapper.client.close();
         });
 
-        await mongoose.connect(process.env.mongo_uri);
+        new TicketCreatedListener(natsWrapper.client).listen();
+        new TicketUpdatedListener(natsWrapper.client).listen();
+
+        new ExpirationCompletedListener(natsWrapper.client).listen();
+
+        await mongoose.connect(process.env.MONGO_URI);
     } catch (error) {
         console.error(error);
     }

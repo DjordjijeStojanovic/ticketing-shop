@@ -15,6 +15,7 @@ interface OrderDocument extends mongoose.Document {
     status: OrderStatus;
     expiresAt: Date;
     ticket: TicketDocument;
+    version: number;
 }
 
 interface OrderModel extends mongoose.Model<OrderDocument> {
@@ -44,6 +45,17 @@ const orderSchema = new mongoose.Schema({
             ret.id = ret._id;
             delete ret._id;
         }
+    }
+});
+
+orderSchema.set('versionKey', 'version');
+orderSchema.pre('save', function() {
+    if(!this.isNew) {
+        const current = this.get('version') as number;
+        this.set('version', current+1);
+        (this as any).$where = {
+            version: current
+        };
     }
 });
 

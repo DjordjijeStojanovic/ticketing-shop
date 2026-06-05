@@ -9,6 +9,7 @@ const endpoint = '/api/orders';
 
 const createTicket = async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'Test ticket',
         price: 20.0
     });

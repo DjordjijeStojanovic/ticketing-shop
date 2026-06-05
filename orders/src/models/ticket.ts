@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { Order } from "./order";
 
 interface TicketAttributes {
+    id: string;
     title: string;
     price: number;
 }
@@ -11,10 +12,12 @@ export interface TicketDocument extends mongoose.Document {
     title: string;
     price: number;
     isReserved(): Promise<boolean>;
+    version: number;
 }
 
 interface TicketModel extends mongoose.Model<TicketDocument> {
     build(attributes: TicketAttributes): TicketDocument;
+    findByIdAndPreviousVersion(event: { id: string, version: number }): Promise<TicketDocument | null>;
 }
 
 const ticketSchema = new mongoose.Schema({
@@ -35,9 +38,31 @@ const ticketSchema = new mongoose.Schema({
     }
 });
 
+ticketSchema.set('versionKey', 'version');
+ticketSchema.pre('save', function() {
+    if(!this.isNew) {
+        const current = this.get('version') as number;
+        this.set('version', current+1);
+        (this as any).$where = {
+            version: current
+        };
+    }
+});
+
+ticketSchema.statics.findByIdAndPreviousVersion = (event: { id: string, version: number }) => {
+    return Ticket.findOne({
+        _id: event.id,
+        version: event.version - 1
+    });
+};
+
 ticketSchema.statics.build = (attributes: TicketAttributes) => {
-    return new Ticket(attributes);
-}
+    return new Ticket({
+        _id: attributes.id,
+        title: attributes.title,
+        price: attributes.price
+    });
+};
 
 ticketSchema.methods.isReserved = async function() {
     const ticketReserved = await Order.findOne({

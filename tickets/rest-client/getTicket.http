@@ -1,2 +1,2 @@
-GET https://ticket-shop.docker/api/tickets/69eb9a5a07b97623271e4779
+GET https://ticket-shop.docker/api/tickets/6a219567cd78040057c9462f
 Content-Type: application/json

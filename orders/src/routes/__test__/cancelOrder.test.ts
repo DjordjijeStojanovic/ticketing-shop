@@ -4,11 +4,13 @@ import { Ticket } from "../../models/ticket";
 import { Order } from "../../models/order";
 import { OrderStatus } from "@djordjestojanovic/common";
 import { natsWrapper } from "../../natsClient";
+import mongoose from "mongoose";
 
 const endpoint = '/api/orders';
 
 it('Cancels an order succesfully', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'New ticket',
         price: 20.0
     });
@@ -41,6 +43,7 @@ it('Cancels an order succesfully', async () => {
 
 it('Emits an event once the order is canceled', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'New ticket',
         price: 20.0
     });

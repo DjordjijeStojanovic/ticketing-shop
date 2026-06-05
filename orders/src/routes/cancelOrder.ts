@@ -27,6 +27,7 @@ router.put('/api/orders/:id',
 
         await new OrderCanceledPublisher(natsWrapper.client).publish({
             id: order.id,
+            version: order.version,
             userId: order.userId,
             ticket: {
                 id: order.ticket._id.toString(),

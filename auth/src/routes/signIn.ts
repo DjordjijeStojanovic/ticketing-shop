@@ -29,7 +29,7 @@ router.post('/api/users/signin', [
     const userJwt = jwt.sign({
         id: user._id,
         emai: user.email,
-    }, process.env.jwt_key);
+    }, process.env.JWT_KEY);
 
     req.session = { jwt: userJwt };
 

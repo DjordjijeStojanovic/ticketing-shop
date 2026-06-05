@@ -1,11 +1,13 @@
 import { app } from "../../app";
 import request from 'supertest';
 import { Ticket } from "../../models/ticket";
+import mongoose from "mongoose";
 
 const endpoint = '/api/orders';
 
 it('Returns an order by ID', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'Test ticket',
         price: 20.0
     });
@@ -31,6 +33,7 @@ it('Returns an order by ID', async () => {
 
 it('Returns a 401 if trying to access someone else\'s order', async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'Test ticket',
         price: 20.0
     });

@@ -1,0 +1,27 @@
+{
+  "name": "expiration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev --poll src/index.ts",
+    "test": "jest --watchAll --no-cache"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@djordjestojanovic/common": "^1.0.22",
+    "@types/bull": "^3.15.9",
+    "bull": "^4.16.5",
+    "node-nats-streaming": "^0.3.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.11"
+  }
+}

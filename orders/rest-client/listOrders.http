@@ -1,0 +1,2 @@
+GET https://ticket-shop.docker/api/orders
+Content-Type: application/json
