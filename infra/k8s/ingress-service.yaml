@@ -10,6 +10,13 @@ spec:
     - host: ticket-shop.docker
       http:
         paths:
+          - path: /api/payments/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: payments-service
+                port:
+                  number: 4000
           - path: /api/users/?(.*)
             pathType: ImplementationSpecific
             backend: 

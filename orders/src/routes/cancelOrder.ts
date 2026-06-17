@@ -35,7 +35,7 @@ router.put('/api/orders/:id',
             }
         })
 
-    res.status(204).json({ result: 'Order succesfully deleted', order });
+    res.status(204).json({ result: 'Order succesfully canceled', order });
 });
 
 export { router as cancelOrderRouter };

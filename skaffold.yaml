@@ -42,6 +42,14 @@ build:
         manual:
           - dest: .
             src: 'src/**/*.ts'
+    - image: djolest/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
     - image: djolest/orders
       context: orders
       docker:

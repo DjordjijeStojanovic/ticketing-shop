@@ -1,0 +1,7 @@
+POST https://ticket-shop.docker/api/payments 
+Content-Type: application/json
+
+{
+    "orderId": "6a32a5c103e5176b31ac8ec2",
+    "token": "tok_visa"
+}
