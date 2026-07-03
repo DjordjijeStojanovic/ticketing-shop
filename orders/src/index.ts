@@ -4,6 +4,7 @@ import { natsWrapper } from "./natsClient";
 import { TicketCreatedListener } from "./events/listeners/ticketCreatedListener";
 import { TicketUpdatedListener } from "./events/listeners/ticketUpdatedListener";
 import { ExpirationCompletedListener } from "./events/listeners/expirationCompletedListener";
+import { PaymentCreatedListener } from "./events/listeners/paymentCreatedListener";
 
 const startUp = async () => {
     if (!process.env.JWT_KEY) {
@@ -49,6 +50,8 @@ const startUp = async () => {
         new TicketUpdatedListener(natsWrapper.client).listen();
 
         new ExpirationCompletedListener(natsWrapper.client).listen();
+
+        new PaymentCreatedListener(natsWrapper.client).listen();
 
         await mongoose.connect(process.env.MONGO_URI);
     } catch (error) {

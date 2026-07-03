@@ -1,9 +1,12 @@
+
 import Link from "next/link";
 
 const Header = ({ user }) => {
   const links = [
     !user && { label: "Sign Up", href: "/auth/signup" },
     !user && { label: "Sign In", href: "/auth/signin" },
+    user && { label: 'Sell a ticket', href: '/tickets/new' },
+    user && { label: 'My Orders', href: '/orders' },
     user && { label: "Sign Out", href: "/auth/signout" },
   ]
     .filter((linkConfig) => {
@@ -11,13 +14,11 @@ const Header = ({ user }) => {
     })
     .map(({ label, href }) => {
       return (
-        <>
-          <li key={href} className="nav-item">
-            <Link href={href} className="nav-link">
-              {label}
-            </Link>
-          </li>
-        </>
+        <li key={href} className="nav-item">
+          <Link href={href} className="nav-link">
+            {label}
+          </Link>
+        </li>
       );
     });
 

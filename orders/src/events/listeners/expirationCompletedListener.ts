@@ -14,6 +14,11 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompletedEve
 
         if(!order) throw new Error(`Order with an id ${orderId} could not be found.`);
 
+        if(order.status === OrderStatus.Completed) {
+            console.log('Orders in a Completed status can\'t be canceled. Returning early');
+            return msg.ack();
+        }
+
         order.set({ status: OrderStatus.Canceled });
         await order.save();
 

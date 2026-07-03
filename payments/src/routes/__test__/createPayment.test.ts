@@ -1,11 +1,12 @@
 import request from 'supertest';
 import { app } from '../../app';
-import mongoose from 'mongoose';
+import mongoose, { get } from 'mongoose';
 import { Order } from '../../models/order';
 import { OrderStatus } from '@djordjestojanovic/common';
 import { stripe } from '../../stripe';
+import { Payment } from '../../models/payment';
 
-jest.mock('../../stripe');
+//jest.mock('../../stripe');
 
 const endpoint = '/api/payments';
 
@@ -53,7 +54,6 @@ it('Returns 400 if the user tries to purchase a canceled order', async () => {
     await order.save();
 
     const authenticatedUser = global.fakeAuth(order.userId);
-
     const fetchedOrder = await Order.findById(order._id.toHexString());
 
     fetchedOrder.set({
@@ -73,11 +73,12 @@ it('Returns 400 if the user tries to purchase a canceled order', async () => {
 });
 
 it('Creates a successful charge', async () => {
+    const price = Math.floor(Math.random() * 100000);
     const order = Order.build({
         id: new mongoose.Types.ObjectId().toHexString(), 
         version: 0,
         userId: new mongoose.Types.ObjectId().toHexString(),
-        price: 20,
+        price: price,
         status: OrderStatus.Created
     });
 
@@ -86,7 +87,6 @@ it('Creates a successful charge', async () => {
     const authenticatedUser = global.fakeAuth(order.userId);
     const fetchedOrder = await Order.findById(order._id.toHexString());
 
-
     await request(app)
         .post(endpoint)
         .set('Cookie', authenticatedUser)
@@ -94,11 +94,19 @@ it('Creates a successful charge', async () => {
             token: 'tok_visa',
             orderId: fetchedOrder.id
         })
-        .expect(204)
+        .expect(201)
     
-    const mockUpFunc = (stripe.charges.create as jest.Mock).mock.calls[0][0];
+
+    const getStripeCharges = await stripe.charges.list({ limit: 50 });
+    const stripeCharge = getStripeCharges.data.find((charge) => charge.amount === price * 100);
+
+    expect(stripeCharge).toBeDefined();
+    expect(stripeCharge.currency).toEqual('usd');
     
-    expect(mockUpFunc.source).toEqual('tok_visa');
-    expect(mockUpFunc.amount).toEqual(20 * 100);
-    expect(mockUpFunc.currency).toEqual('usd');
+    const payment = await Payment.findOne({ 
+        orderId: fetchedOrder.id,
+        chargeId: stripeCharge.id
+    });
+
+    expect(payment).not.toBeNull();
 });

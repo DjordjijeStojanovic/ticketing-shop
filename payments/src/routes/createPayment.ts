@@ -3,16 +3,18 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { Order } from '../models/order';
 import { stripe } from '../stripe';
+import { Payment } from '../models/payment';
+import { PaymentCreatedPublisher } from '../events/publishers/paymentCreatedPublisher';
+import { natsWrapper } from '../natsClient';
 
 const router = express.Router();
 
 router.post('/api/payments', 
     requireAuthToAccessRoutes, [
-        body('token').not().isEmpty().withMessage('Token from Stripe is missing'),
         body('orderId').not().isEmpty().withMessage('Order Id is missing')
     ], validateRequest,
     async (req: Request, res: Response) => { 
-        const { orderId, token } = req.body;
+        const { orderId } = req.body;
 
         const order = await Order.findById(orderId);
 
@@ -28,13 +30,16 @@ router.post('/api/payments',
             throw new BadHTTPRequestError('The order you\'re trying to charge for is canceled.');
         }
 
-        const response = await stripe.charges.create({
-            amount: order.price * 100,
-            currency: 'usd',
-            source: token
-        });
+        const session = await Payment.createCheckoutSession(order);
 
-        res.status(204).json({ success: true, result: response });
+        try {
+            const payment = Payment.build({ orderId, sessionId: session.id });
+            await payment.save();
+        } catch {
+            throw new BadHTTPRequestError('A payment for this order has already been initiated.');
+        }
+
+        res.status(201).json({ url: session.url });
 });
 
 export { router as createPaymentRouter };

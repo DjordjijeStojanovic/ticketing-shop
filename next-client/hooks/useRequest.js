@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useState } from 'react';
-import Router from 'next/router';
 
 const useRequest = ({ url, method, reqBody, onSuccess }) => {
     const [errors, setErrors] = useState(null);
@@ -9,7 +8,7 @@ const useRequest = ({ url, method, reqBody, onSuccess }) => {
         try {
             setErrors(null);
             const response = await axios[method](url, reqBody);
-            if(onSuccess) {
+            if (onSuccess) {
                 onSuccess(response.data);
             }
             return response.data
@@ -21,9 +20,7 @@ const useRequest = ({ url, method, reqBody, onSuccess }) => {
                         <ul className='my-0'>
                             {error.response.data.errors.map((eachEr) => {
                                 return (
-                                    <>
-                                        <li key={eachEr.message}>{eachEr.message}</li>
-                                    </>
+                                    <li key={eachEr.message}>{eachEr.message}</li>
                                 )
                             })}
                         </ul>

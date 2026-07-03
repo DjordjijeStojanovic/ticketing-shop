@@ -36,6 +36,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name 
+            - name: STRIPE_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: stripewhsecret 
+                  key: STRIPE_WEBHOOK_SECRET
 
 ---
 

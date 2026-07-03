@@ -1,8 +1,7 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose, { get } from 'mongoose';
-import { app } from '../app';
-import request from 'supertest';
 import jwt from 'jsonwebtoken';
+jest.mock('../natsClient')
 
 let mongo: any;
 
@@ -14,7 +13,7 @@ declare global {
     }
 }
 
-jest.mock('../natsClient');
+process.env.STRIPE_KEY = 'sk_test_51Tgns3C1v2gTabft6hA2PvPJ86F8O2ydOeittRsznN2B5DG9YRv1b8sA9gscUgyq78bgyn15vMxll4aqAyUBlNpT00mM0HjPn1';
 
 beforeAll(async () => {
     process.env.JWT_KEY = 'test_secret';
