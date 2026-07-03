@@ -15,7 +15,6 @@ it('Returns 404 if user tries to purchase an order that does not exist', async (
         .post(endpoint)
         .set('Cookie', global.fakeAuth())
         .send({
-            token: 'token',
             orderId: new mongoose.Types.ObjectId().toHexString()
         })
         .expect(404)
@@ -36,7 +35,6 @@ it('Returns 401 if unauthenticated user tried to make a payment', async () => {
         .post(endpoint)
         .set('Cookie', global.fakeAuth())
         .send({ 
-            token: 'token',
             orderId: order._id.toHexString()
         })
         .expect(401)
@@ -66,7 +64,6 @@ it('Returns 400 if the user tries to purchase a canceled order', async () => {
         .post(endpoint)
         .set('Cookie', authenticatedUser)
         .send({
-            token: 'token',
             orderId: fetchedOrder.id
         })
         .expect(400)
@@ -91,7 +88,6 @@ it('Creates a successful charge', async () => {
         .post(endpoint)
         .set('Cookie', authenticatedUser)
         .send({
-            token: 'tok_visa',
             orderId: fetchedOrder.id
         })
         .expect(201)
