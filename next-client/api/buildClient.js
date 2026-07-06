@@ -7,7 +7,7 @@ const buildClient = ({ req }) => {
             headers: req.headers
         });
     } else {
-        return axios.create({
+        return axios.create({ 
             //This is a client side fallback, so headers will be applied automatically
             baseURL: '/'
         })
