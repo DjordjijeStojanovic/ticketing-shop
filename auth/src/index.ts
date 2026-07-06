@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { app } from "./app";
 
-const startUp = async () => {
+const initServer = async () => {
     console.log('Starting Auth service up');
     
     if(!process.env.JWT_KEY) {
@@ -18,4 +18,4 @@ const startUp = async () => {
     });
 }
 
-startUp();
+initServer();
