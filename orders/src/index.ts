@@ -7,7 +7,7 @@ import { ExpirationCompletedListener } from "./events/listeners/expirationComple
 import { PaymentCreatedListener } from "./events/listeners/paymentCreatedListener";
 
 const serverInit = async () => {
-    console.log('Starting Orders service');
+    console.log('Starting Orders service up!');
 
     if (!process.env.JWT_KEY) {
         throw new Error("JWT Secret not defined in auth-depl.yaml");
