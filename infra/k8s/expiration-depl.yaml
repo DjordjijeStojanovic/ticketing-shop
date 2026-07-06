@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: expiration
-          image: djolest/expiration
+          image: djolestojanovic/expiration
           env:
             - name: NATS_URL
               value: 'http://nats-service:4222'
