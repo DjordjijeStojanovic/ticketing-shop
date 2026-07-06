@@ -4,7 +4,7 @@ import { natsWrapper } from "./natsClient";
 import { OrderCreatedListener } from "./events/listeners/orderCreatedListener";
 import { OrderCanceledListener } from "./events/listeners/orderCanceledListener";
 
-const startUp = async () => {
+const serverInit = async () => {
     if (!process.env.JWT_KEY) {
         throw new Error("JWT Secret not defined in tickets-depl.yaml");
     }
@@ -58,4 +58,4 @@ const startUp = async () => {
     });
 };
 
-startUp();
+serverInit();
