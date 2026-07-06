@@ -49,34 +49,33 @@ spec:
 ---
 
 apiVersion: v1
-kind: Service 
-metadata:
-  annotations:
-    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true'
-    service.beta.kubernetes.io/do-loadbalancer-hostname: 'www.ticketing-shop-staging.xyz'
-  labels:
-    helm.sh/chart: ingress-nginx-2.0.3
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/version: 0.32.0
+kind: Service
+metadata: 
+  annotations: 
+    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true' 
+    service.beta.kubernetes.io/do-loadbalancer-hostname: 'www.ticketing-shop-staging.xyz' 
+  labels: 
+    helm.sh/chart: ingress-nginx-2.0.3 
+    app.kubernetes.io/name: ingress-nginx 
+    app.kubernetes.io/instance: ingress-nginx 
+    app.kubernetes.io/version: 0.32.0 
     app.kubernetes.io/managed-by: Helm 
-    app.kubernetes.io/component: controller
-  name: ingress-nginx-controller
-  name: ingress-nginx-controller
+    app.kubernetes.io/component: controller 
+  name: ingress-nginx-controller 
   namespace: ingress-nginx
 spec: 
   type: LoadBalancer 
   externalTrafficPolicy: Local 
-  ports:
+  ports: 
     - name: http 
-      port: 80
+      port: 80 
       protocol: TCP 
-      targerPort: http 
-    - name: https
-      port: 443
+      targetPort: http
+    - name: https 
+      port: 443 
       protocol: TCP 
-      targerPort: https 
-  selector:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/instance: ingress-nginx
+      targetPort: https 
+  selector: 
+    app.kubernetes.io/name: ingress-nginx 
+    app.kubernetes.io/instance: ingress-nginx 
     app.kubernetes.io/component: controller
