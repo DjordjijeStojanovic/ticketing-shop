@@ -6,7 +6,7 @@ import { TicketUpdatedListener } from "./events/listeners/ticketUpdatedListener"
 import { ExpirationCompletedListener } from "./events/listeners/expirationCompletedListener";
 import { PaymentCreatedListener } from "./events/listeners/paymentCreatedListener";
 
-const startUp = async () => {
+const serverInit = async () => {
     console.log('Starting Orders service');
 
     if (!process.env.JWT_KEY) {
@@ -66,4 +66,4 @@ const startUp = async () => {
     });
 };
 
-startUp();
+serverInit();

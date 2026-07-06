@@ -4,7 +4,7 @@ import { natsWrapper } from "./natsClient";
 import { OrderCreatedListener } from "./events/listeners/orderCreatedListener";
 import { OrderCanceledListener } from "./events/listeners/orderCanceledListener";
 
-const startUp = async () => {
+const serverInit = async () => {
     console.log('Starting Payments service');
     
     if (!process.env.JWT_KEY) {
@@ -60,4 +60,4 @@ const startUp = async () => {
     });
 };
 
-startUp();
+serverInit();
