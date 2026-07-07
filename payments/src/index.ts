@@ -5,8 +5,6 @@ import { OrderCreatedListener } from "./events/listeners/orderCreatedListener";
 import { OrderCanceledListener } from "./events/listeners/orderCanceledListener";
 
 const serverInit = async () => {
-    console.log('Starting Payments service up!');
-    
     if (!process.env.JWT_KEY) {
         throw new Error("JWT Secret not defined in tickets-depl.yaml");
     }

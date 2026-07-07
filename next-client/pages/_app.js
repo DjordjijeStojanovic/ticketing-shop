@@ -23,7 +23,6 @@ AppComponent.getInitialProps = async (appCtx) => {
     if (appCtx.Component.getInitialProps) {
         renderedComponentProps = await appCtx.Component.getInitialProps(appCtx.ctx, client, data.user);
     }
-    console.log(renderedComponentProps);
     return {
         pageProps: renderedComponentProps,
         ...data
