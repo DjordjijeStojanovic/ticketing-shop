@@ -3,7 +3,7 @@ import axios from "axios";
 const buildClient = ({ req }) => {
     if(typeof window === 'undefined') {
         return axios.create({
-            baseURL: 'https://ticketing-shop-staging.xyz/',
+            baseURL: 'http://ticketing-shop-staging.xyz/',
             headers: req.headers
         });
     } else {
