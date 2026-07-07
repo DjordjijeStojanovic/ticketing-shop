@@ -2,8 +2,6 @@ import { OrderCreatedListener } from "./events/listeners/orderCreatedListener";
 import { natsWrapper } from "./natsClient";
 
 const serverInit = async () => {
-    console.log('Starting Expiration service up!');
-    
     if(!process.env.NATS_URL) {
         throw new Error('NATS streaming URL has to be defined in expiration-depl.yaml');
     }

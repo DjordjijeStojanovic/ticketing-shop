@@ -2,8 +2,6 @@ import mongoose from "mongoose";
 import { app } from "./app";
 
 const serverInit = async () => {
-    console.log('Starting Auth service up!');
-    
     if(!process.env.JWT_KEY) {
         throw new Error('JWT Secret not defined in auth-depl.yaml');
     }
