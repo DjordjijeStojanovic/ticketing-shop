@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const Main = ({ user, tickets }) => {
+    console.log('Teast')
     const ticketList = tickets.map((ticket) => (
         <tr key={ticket.id}>
             <td>{ticket.title}</td>
