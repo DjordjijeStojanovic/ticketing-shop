@@ -25,6 +25,12 @@ spec:
                   key: JWT_KEY
             - name: NEXT_PUBLIC_STRIPE_PK
               value: "pk_test_51Tgns3C1v2gTabftdPqID9G6l0Xu8DxYFJmVakemynSOnaBQgGAzgX0hWak4WaUqzyrlP7cNNfr4y6eAu38lzcMy00P9W2G2Hy"
+            - name: HOST_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: next-client-config
+                  key: HOST_SERVER
+
 
 ---
 
