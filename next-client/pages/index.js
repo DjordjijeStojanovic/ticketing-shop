@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import styles from '../styles/index.module.css'
 import Modal from '../components/modal';
 import { useState } from "react";
-import NewTicket from "./tickets/new";
+import NewTicket from "./tickets/new"; 
 
 const Main = ({ user, tickets }) => {
     const [showModal, setShowModal] = useState(false);
