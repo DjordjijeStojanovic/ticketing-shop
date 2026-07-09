@@ -1,0 +1,63 @@
+.newTicket {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.mainContainer {
+    padding: 100px;
+}
+
+.indexHeader {
+    color: white;
+}
+
+.mainBtn {
+    margin-top: 20px;
+}
+
+.cardDiv {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    background-color: #7ADCA5;
+}
+
+.cardTitle {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    background-color: #7ADCA5 !important;
+}
+
+.cardPrice {
+    background-color: #7ADCA5 !important;
+}
+
+.tChildFirst {
+    border: 1px solid;
+}
+
+.cardNav { 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.cardsH1 {
+    margin: 45px;
+    text-align: center;
+    color: white;
+}
+
+.linkNav {
+    text-decoration: none !important;
+    color: white;
+    font-weight: bold;
+}
+
+.submitBtn {
+    background-color: #418b63 !important;
+    border: 1px solid;
+}

@@ -1,0 +1,26 @@
+.brandName {
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+}
+
+.navBarLink {
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+}
+
+.navItem {
+    border: 1px solid;
+    border-radius: 10px;
+    background-color: #418b63;
+}
+
+.ulNav {
+    gap: 15px;
+}
+
+.navMain {
+    padding: 20px;
+    background-color: #25CC86 !important;
+}
