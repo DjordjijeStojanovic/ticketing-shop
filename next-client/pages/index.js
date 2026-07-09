@@ -19,7 +19,7 @@ const Main = ({ user, tickets }) => {
                     as={`/tickets/${ticket.id}`}>View</Link>
             </Button>
         </div>
-    )); 
+    ));
 
     if (!tickets.length) {
         return (
