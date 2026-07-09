@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import buildClient from '../api/buildClient';
 import Header from '../components/header';
-
+import '../styles/global.css'
 
 const AppComponent = ({ Component, pageProps, user }) => {
     return (

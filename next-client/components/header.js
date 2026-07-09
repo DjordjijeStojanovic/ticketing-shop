@@ -1,5 +1,5 @@
-
 import Link from "next/link";
+import styles from '../styles/header.module.css'
 
 const Header = ({ user }) => {
   const links = [
@@ -14,8 +14,8 @@ const Header = ({ user }) => {
     })
     .map(({ label, href }) => {
       return (
-        <li key={href} className="nav-item">
-          <Link href={href} className="nav-link">
+        <li key={href} className={`nav-item ${styles.navItem}`}>
+          <Link href={href} className={`nav-link ${styles.navBarLink}`}>
             {label}
           </Link>
         </li>
@@ -24,12 +24,12 @@ const Header = ({ user }) => {
 
   return (
     <>
-      <nav className="navbar navbar-light bg-light">
-        <Link className="navbar-brand" href="/">
+      <nav className={`navbar navbar-light bg-light ${styles.navMain}`}>
+        <Link className={`navbar-brand ${styles.brandName}`} href="/">
           TicketShop
         </Link>
         <div className="d-flex justify-content-end">
-          <ul className="align-items-center d-flex nav">{links}</ul>
+          <ul className={`align-items-center d-flex nav ${styles.ulNav}`}>{links}</ul>
         </div>
       </nav>
     </>

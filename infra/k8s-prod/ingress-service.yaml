@@ -4,8 +4,13 @@ metadata:
   name: ingress-service
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true" 
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+      - www.ticketing-shop-staging.xyz
+      secretName: ticketing-shop-tls
   rules:
     - host: www.ticketing-shop-staging.xyz
       http:

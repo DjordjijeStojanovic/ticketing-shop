@@ -1,8 +1,10 @@
 import { useState } from "react";
 import useRequest from "../../hooks/useRequest";
-import Router from 'next/router';
+import styles from '../../styles/ticketNew.module.css'
+import CustomForm from "../../components/customForm";
+import Router from "next/router";
 
-const NewTicket = () => {
+const NewTicket = ({ onSuccess = () => Router.push('/') }) => {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
 
@@ -20,7 +22,7 @@ const NewTicket = () => {
         url: '/api/tickets',
         method: 'post',
         reqBody: { title, price },
-        onSuccess: () => Router.push('/')
+        onSuccess: () => onSuccess?.()
     });
 
     const onSubmit = (event) => {
@@ -30,26 +32,16 @@ const NewTicket = () => {
 
     return (
         <>
-            <div>
-                <h1>Create a new ticket</h1>
-                <form onSubmit={onSubmit}>
-                    <div className="form-group">
-                        <label>Title</label>
-                        <input value={title} onChange={(event) => setTitle(event.target.value)} className="form-control" />
-                    </div>
-                    <div className='form-group'>
-                        <label>Price</label>
-                        <input 
-                            value={price}
-                            onBlur={onBlur}
-                            onChange={(event) => setPrice(event.target.value)} 
-                            className="form-control" 
-                        />
-                    </div>
-                    {errors}
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
-            </div>
+            <CustomForm 
+                cssClasses={styles} 
+                heading='Create a ticket' 
+                onSubmit={onSubmit} 
+                submitLabel='Submit' 
+                errors={errors} 
+                inputFields={[
+                    { value: title, placeholder: 'Title', onChange: (event) => setTitle(event.target.value) },
+                    { value: price, placeholder: 'Price', onBlur: onBlur, onChange: (event) => setPrice(event.target.value) }
+                ]}/>
         </>
     )
 }

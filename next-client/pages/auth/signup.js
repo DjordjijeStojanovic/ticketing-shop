@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import Router from 'next/router';
 import useRequest from '../../hooks/useRequest';
+import styles from '../../styles/auth.module.css';
+import CustomForm from '../../components/customForm';
 
 const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { handleRequest, errors } = useRequest({ 
+    const { handleRequest, errors } = useRequest({
         url: '/api/users/signup',
         method: 'post',
         reqBody: { email, password },
@@ -20,23 +22,16 @@ const Signup = () => {
 
     return (
         <>
-            <form onSubmit={onSubmit}>
-                <h1>Sign up!</h1>
-                <div className='form-group'>
-                    <label>Email Address</label>
-                    <input value={email} onChange={(e) => {
-                        return setEmail(e.target.value);
-                    }} className='form-control' />
-                </div>
-                <div className='form-group'>
-                    <label>Password</label>
-                    <input value={password} onChange={(e) => {
-                        return setPassword(e.target.value)
-                    }} type='password' className='form-control' />
-                </div>
-                {errors}
-                <button className='btn btn-primary'>Sign up!</button>
-            </form>
+            <CustomForm 
+                cssClasses={styles}
+                onSubmit={onSubmit}
+                submitLabel='Sign up'
+                heading='Sign Up'
+                errors={errors}
+                inputFields={[
+                    { value: email, placeholder: 'Email', onChange: (event) => setEmail(event.target.value) },
+                    { value: password, placeholder: 'Password', type: 'password', onChange: (event) => setPassword(event.target.value) }
+                ]}/>
         </>
     )
 }

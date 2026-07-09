@@ -1,0 +1,24 @@
+.customModal :global(.modal-content) {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.customModal :global(.modal-header) {
+    background-color: #418b63;
+    border-bottom: none;
+}
+
+.customModal :global(.modal-title) {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.customModal :global(.btn-close) {
+    filter: invert(1) brightness(2);
+}
+
+.customModal :global(.modal-body) {
+    background-color: #ffffff;
+    padding: 24px;
+}
